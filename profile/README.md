@@ -37,7 +37,7 @@ edgit deploy set extraction-prompt v0.1.0 --to prod  # < 50ms globally
 
 All version data lives in Git tags. Your CI/CD deploys to Cloudflare KV. Every version ever created is instantly accessible at the edge.
 
-[→ Edgit Documentation](./edgit)
+[→ Get Started with Edgit](https://docs.ensemble.ai/getting-started/edgit)
 
 ---
 
@@ -78,7 +78,7 @@ flow:
 
 Define workflows in Git. Deploy to Cloudflare Workers. State management, caching, and parallelization built in.
 
-[→ Conductor Documentation](./conductor)
+[→ Learn About Conductor](https://docs.ensemble.ai/conductor/overview)
 
 ---
 
@@ -222,20 +222,22 @@ Then orchestrates them at the edge where they execute fast and scale infinitely.
 
 ## Documentation
 
-- [Edgit Guide](./edgit/README.md) - Component versioning
-- [Conductor Guide](./conductor/README.md) - Edge orchestration
-- [Integration Guide](./docs/integration.md) - Using both together
-- [API Reference](./docs/api.md) - SDK documentation
-- [Examples](./examples) - Real-world implementations
+📚 **[Complete Documentation](https://docs.ensemble.ai)** - Comprehensive guides and tutorials
+
+- **[Edgit](https://docs.ensemble.ai/edgit/overview)** - Component versioning system
+- **[Conductor](https://docs.ensemble.ai/conductor/overview)** - Edge orchestration framework
+- **[Cloud](https://docs.ensemble.ai/cloud/overview)** - Managed service (coming soon)
+- **[Getting Started](https://docs.ensemble.ai/getting-started)** - Quick start guides for all products
+- **[Examples](https://github.com/ensemble-edge/edgit/tree/main/examples)** - Real-world implementations
 
 ---
 
 ## Contributing
 
 We're building in public. Watch development at:
-- [Edgit Repository](./edgit)
-- [Conductor Repository](./conductor)
-- [Planning Documents](./.planning)
+- **[Edgit Repository](https://github.com/ensemble-edge/edgit)** - Component versioning
+- **[Conductor Repository](https://github.com/ensemble-edge/conductor)** - Edge orchestration
+- **[Documentation](https://github.com/ensemble-edge/docs)** - Mintlify docs site
 
 Issues, PRs, and feedback welcome.
 
