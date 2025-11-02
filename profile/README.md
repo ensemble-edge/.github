@@ -2,7 +2,7 @@
 
 **Version control meets edge orchestration for AI systems.**
 
-Build AI workflows that you actually control. No proprietary platforms, no vendor lock-in, no serverless sprawl. Just Git, YAML, and Cloudflare Workers.
+Build AI workflows that you actually control. No proprietary platforms, no vendor lock-in, no serverless sprawl, no duct tape and bailing wire "workflow automation." Just Git, YAML, and Cloudflare Workers. Fast, developer-first, infinite scale.
 
 ---
 
