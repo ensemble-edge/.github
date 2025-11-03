@@ -161,11 +161,19 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 - ✅ AI-powered commits
 - ✅ Smart detection
 
-**Conductor:** v0.0.1 (building now)
-- 🚧 Core runtime
-- 🚧 State management
-- 📋 Scoring system
-- 📋 MCP integration
+**Conductor:** v0.0.1 (production-ready)
+- ✅ Core runtime with graph executor
+- ✅ State management (immutable, access tracking)
+- ✅ Think, Function, Data, API members
+- ✅ Durable Objects (ExecutionState, HITL)
+- ✅ Webhooks & scheduled execution
+- ✅ Built-in testing (276 tests, 40%+ coverage)
+- ✅ CLI tools (init, add member, validate, upgrade)
+- ✅ SDK with client library & testing utilities
+- ✅ Observability & logging
+- ✅ AI Gateway integration
+- 🚧 Scoring system (in progress)
+- 📋 MCP integration (planned)
 
 **Cloud:** Design phase (managed service with generous free tier)
 
@@ -192,11 +200,23 @@ edgit build --target cloudflare
 edgit deploy --to cloudflare
 ```
 
-### Conductor (Coming Soon)
+### Install Conductor
 ```bash
-npm install @ensemble-edge/conductor
-conductor init
-conductor deploy
+# Install globally
+npm install -g @ensemble-edge/conductor
+
+# Create new project
+conductor init my-project
+cd my-project
+
+# Add a member
+conductor add member greet --type Function
+
+# Run tests
+npm test
+
+# Deploy
+npm run deploy
 ```
 
 ---
