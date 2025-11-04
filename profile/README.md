@@ -168,7 +168,7 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 - ✅ Durable Objects (ExecutionState, HITL)
 - ✅ Webhooks & scheduled execution
 - ✅ Built-in testing (276 tests, 40%+ coverage)
-- ✅ CLI tools (init, add member, validate, upgrade)
+- ✅ CLI tools (exec, members, test, docs, history, logs, state, replay, health, config)
 - ✅ SDK with client library & testing utilities
 - ✅ Observability & logging
 - ✅ AI Gateway integration
@@ -202,21 +202,31 @@ edgit deploy --to cloudflare
 
 ### Install Conductor
 ```bash
-# Install globally
-npm install -g @ensemble-edge/conductor
+# Install Conductor
+npm install @ensemble-edge/conductor
 
-# Create new project
-conductor init my-project
-cd my-project
+# Create ensemble workflow
+mkdir -p ensembles
+cat > ensembles/hello-world.yml << EOF
+name: hello-world
+flow:
+  - member: greet
+    type: Think
+    config:
+      provider: cloudflare
+      model: '@cf/meta/llama-3.1-8b-instruct'
+    input:
+      prompt: Say hello to \${input.name}
+EOF
 
-# Add a member
-conductor add member greet --type Function
+# Deploy to Cloudflare Workers
+npx wrangler login
+npx wrangler deploy
 
-# Run tests
-npm test
-
-# Deploy
-npm run deploy
+# Execute ensemble
+curl https://your-worker.workers.dev/api/v1/execute \
+  -H "Content-Type: application/json" \
+  -d '{"ensemble": "hello-world", "input": {"name": "World"}}'
 ```
 
 ---
