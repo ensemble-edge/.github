@@ -155,11 +155,13 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 
 ## Status
 
-**Edgit:** v0.1.8 (active development)
+**Edgit:** v0.2.0 (active development)
 - ✅ Component versioning
 - ✅ Deployment management
 - ✅ AI-powered commits
 - ✅ Smart detection
+- ✅ Component listing (tree, JSON, YAML, table)
+- ✅ Discovery tools (scan, detect, patterns)
 
 **Conductor:** v1.0.0 (production-ready)
 - ✅ Core runtime with graph executor
