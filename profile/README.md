@@ -155,7 +155,7 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 
 ## Status
 
-**Edgit:** v0.2.0 (active development)
+**Edgit** (active development)
 - ✅ Component versioning
 - ✅ Deployment management
 - ✅ AI-powered commits
@@ -163,13 +163,13 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 - ✅ Component listing (tree, JSON, YAML, table)
 - ✅ Discovery tools (scan, detect, patterns)
 
-**Conductor:** v1.5.0 (production-ready)
+**Conductor** (production-ready)
 - ✅ Core runtime with graph executor
 - ✅ State management (immutable, access tracking)
 - ✅ Agent operations: think, code, storage, http, tools, scoring, email, sms, form, page, html, pdf
 - ✅ Durable Objects (ExecutionState, HITL)
 - ✅ Webhooks & scheduled execution
-- ✅ Built-in testing (741 tests passing)
+- ✅ Comprehensive test suite
 - ✅ CLI tools (exec, agents, test, docs, history, logs, state, replay, health, config)
 - ✅ SDK with client library & testing utilities
 - ✅ Observability & logging
@@ -177,7 +177,7 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 - ✅ Scoring system for quality metrics
 - 📋 MCP integration (tools operation ready)
 
-**Cloud:** Design phase (managed service with generous free tier)
+**Cloud** (design phase - managed service with generous free tier)
 
 ---
 
