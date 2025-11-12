@@ -55,7 +55,7 @@ state:
     analysis: object
 
 flow:
-  - member: fetch-company-data
+  - agent: fetch-company-data
     state:
       set: [companyData]
     input:
@@ -64,12 +64,12 @@ flow:
       ttl: 3600
 
   - parallel:
-    - member: analyze-financials
+    - agent: analyze-financials
       state:
         use: [companyData]
         set: [analysis]
 
-    - member: fetch-competitors
+    - agent: fetch-competitors
       state:
         use: [companyData]
 ```
@@ -82,7 +82,7 @@ Define workflows in Git. Deploy to Cloudflare Workers. State management, caching
 
 ---
 
-## Integration: Components → Members → Ensembles
+## Integration: Components → Agents → Ensembles
 
 ```yaml
 # Version components with Edgit
@@ -90,9 +90,9 @@ components:
   extraction-prompt: v1.0.0
   company-analyzer: v2.1.0
 
-# Load as Conductor members
-members:
-  - type: Think
+# Load as Conductor agents
+agents:
+  - operation: think
     component: extraction-prompt@v1.0.0
     config:
       model: gpt-4
@@ -101,7 +101,7 @@ members:
 # Orchestrate in ensembles
 ensembles:
   - name: company-intel
-    members: [fetch, analyze, score]
+    agents: [fetch, analyze, score]
     deploy: cloudflare-workers
 ```
 
@@ -140,10 +140,10 @@ Cloudflare Workers, KV, D1, R2, and AI Gateway are the primitives. No centralize
 Configuration, orchestration, and versioning live in Git. CLI and SDK are thin layers around Git operations.
 
 ### Cache-Central
-Multi-layer caching with TTL control. Member-level cache settings. Cache-first thinking reduces costs and latency.
+Multi-layer caching with TTL control. Agent-level cache settings. Cache-first thinking reduces costs and latency.
 
 ### Structured Outputs
-LLM and API members produce machine-readable, type-safe output validated via JSON schema.
+LLM and API agents produce machine-readable, type-safe output validated via JSON schema.
 
 ### Observable by Default
 Every execution emits structured logs and metrics. Debugging and transparency are effortless.
@@ -163,19 +163,19 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 - ✅ Component listing (tree, JSON, YAML, table)
 - ✅ Discovery tools (scan, detect, patterns)
 
-**Conductor:** v1.0.0 (production-ready)
+**Conductor:** v1.5.0 (production-ready)
 - ✅ Core runtime with graph executor
 - ✅ State management (immutable, access tracking)
-- ✅ Think, Function, Data, API members
+- ✅ Agent operations: think, code, storage, http, tools, scoring, email, sms, form, page, html, pdf
 - ✅ Durable Objects (ExecutionState, HITL)
 - ✅ Webhooks & scheduled execution
-- ✅ Built-in testing (276 tests, 40%+ coverage)
-- ✅ CLI tools (exec, members, test, docs, history, logs, state, replay, health, config)
+- ✅ Built-in testing (741 tests passing)
+- ✅ CLI tools (exec, agents, test, docs, history, logs, state, replay, health, config)
 - ✅ SDK with client library & testing utilities
 - ✅ Observability & logging
 - ✅ AI Gateway integration
 - ✅ Scoring system for quality metrics
-- 📋 MCP integration (planned)
+- 📋 MCP integration (tools operation ready)
 
 **Cloud:** Design phase (managed service with generous free tier)
 
@@ -212,8 +212,8 @@ mkdir -p ensembles
 cat > ensembles/hello-world.yml << EOF
 name: hello-world
 flow:
-  - member: greet
-    type: Think
+  - agent: greet
+    operation: think
     config:
       provider: cloudflare
       model: '@cf/meta/llama-3.1-8b-instruct'
