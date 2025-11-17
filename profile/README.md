@@ -23,11 +23,12 @@ Version every AI component independently. Deploy any combination from any point 
 edgit tag create extraction-prompt v1.0.0
 edgit tag create company-agent v2.1.0
 edgit tag create validation-sql v0.5.0
+edgit tag create invoice-schema v1.0.0
 
 # Deploy optimal versions from different timelines
 edgit deploy set extraction-prompt v0.1.0 --to prod  # Ancient but perfect
 edgit deploy set company-agent v3.0.0 --to prod      # Latest stable
-edgit deploy set validation-sql v2.5.0 --to prod     # Optimal performance
+edgit deploy set invoice-schema v1.0.0 --to prod     # Structured outputs
 
 # Instant rollback
 edgit deploy set extraction-prompt v0.1.0 --to prod  # < 50ms globally
@@ -156,7 +157,7 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 ## Status
 
 **Edgit** (active development)
-- ✅ Component versioning
+- ✅ Component versioning (prompts, queries, configs, scripts, schemas)
 - ✅ Deployment management
 - ✅ AI-powered commits
 - ✅ Smart detection
@@ -166,16 +167,17 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 **Conductor** (production-ready)
 - ✅ Core runtime with graph executor
 - ✅ State management (immutable, access tracking)
-- ✅ Agent operations: think, code, storage, http, tools, scoring, email, sms, form, page, html, pdf
+- ✅ Operations: think, code, storage, http, tools (MCP), email, sms, html, pdf, page
+- ✅ Structured outputs with JSON Schema components
 - ✅ Durable Objects (ExecutionState, HITL)
-- ✅ Webhooks & scheduled execution
-- ✅ Comprehensive test suite
+- ✅ Webhooks (inbound/outbound with HMAC signatures)
+- ✅ Scheduled execution (cron triggers)
+- ✅ Comprehensive test suite (809 tests passing)
 - ✅ CLI tools (exec, agents, test, docs, history, logs, state, replay, health, config)
 - ✅ SDK with client library & testing utilities
 - ✅ Observability & logging
 - ✅ AI Gateway integration
 - ✅ Scoring system for quality metrics
-- 📋 MCP integration (tools operation ready)
 
 **Cloud** (design phase - managed service with generous free tier)
 
