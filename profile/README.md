@@ -207,7 +207,7 @@ edgit deploy --to cloudflare
 ### Install Conductor
 ```bash
 # Install Conductor
-npm install @ensemble-edge/conductor
+pnpm add -D @ensemble-edge/conductor
 
 # Create ensemble workflow
 mkdir -p ensembles
