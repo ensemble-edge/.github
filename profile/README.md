@@ -167,7 +167,7 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 **Conductor** (production-ready)
 - ✅ Core runtime with graph executor
 - ✅ State management (immutable, access tracking)
-- ✅ Operations: think, code, storage, http, tools (MCP), email, sms, html, pdf, page
+- ✅ Operations: think, code, storage, data, http, tools (MCP), email, sms, html, pdf, page
 - ✅ Structured outputs with JSON Schema components
 - ✅ Durable Objects (ExecutionState, HITL)
 - ✅ Webhooks (inbound/outbound with HMAC signatures)
