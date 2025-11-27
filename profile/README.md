@@ -50,29 +50,30 @@ Compose AI workflows in YAML. Execute at 200+ global locations. Sub-50ms cold st
 # ensembles/company-intelligence.yaml
 name: company-intelligence
 
-state:
-  schema:
-    companyData: object
-    analysis: object
+trigger:
+  - type: http
+    path: /api/company-intel
+    methods: [POST]
+    public: true
 
 flow:
-  - agent: fetch-company-data
-    state:
-      set: [companyData]
+  - name: fetch-company-data
+    agent: fetch-company-data
     input:
       domain: ${input.domain}
     cache:
       ttl: 3600
 
   - parallel:
-    - agent: analyze-financials
-      state:
-        use: [companyData]
-        set: [analysis]
+    - name: analyze-financials
+      agent: analyze-financials
 
-    - agent: fetch-competitors
-      state:
-        use: [companyData]
+    - name: fetch-competitors
+      agent: fetch-competitors
+
+output:
+  data: ${fetch-company-data.output}
+  analysis: ${analyze-financials.output}
 ```
 
 **No DAG builders. No UI-driven workflows. No central orchestrator bottleneck.**
@@ -92,18 +93,14 @@ components:
   company-analyzer: v2.1.0
 
 # Load as Conductor agents
-agents:
-  - operation: think
-    component: extraction-prompt@v1.0.0
-    config:
-      model: gpt-4
-      cache_ttl: 3600
+agents/
+  fetch-company-data.yaml
+  analyze-financials.yaml
+  fetch-competitors.yaml
 
 # Orchestrate in ensembles
-ensembles:
-  - name: company-intel
-    agents: [fetch, analyze, score]
-    deploy: cloudflare-workers
+ensembles/
+  company-intelligence.yaml
 ```
 
 Mix optimal component versions. Test combinations locally. Deploy atomically to the edge.
@@ -167,12 +164,13 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 **Conductor** (production-ready)
 - ✅ Core runtime with graph executor
 - ✅ State management (immutable, access tracking)
-- ✅ Operations: think, code, storage, data, http, tools (MCP), email, sms, html, pdf, page
+- ✅ Triggers: http, webhook, mcp, email, queue, cron, build, cli (8 types)
+- ✅ Operations: think, code, storage, data, http, tools, email, sms, html, pdf, page, form, queue, docs (14 types)
 - ✅ Structured outputs with JSON Schema components
 - ✅ Durable Objects (ExecutionState, HITL)
 - ✅ Webhooks (inbound/outbound with HMAC signatures)
 - ✅ Scheduled execution (cron triggers)
-- ✅ Comprehensive test suite (809 tests passing)
+- ✅ Comprehensive test suite (1500+ tests passing)
 - ✅ CLI tools (exec, agents, test, docs, history, logs, state, replay, health, config)
 - ✅ SDK with client library & testing utilities
 - ✅ Observability & logging
@@ -209,28 +207,46 @@ edgit deploy --to cloudflare
 # Install Conductor
 pnpm add -D @ensemble-edge/conductor
 
+# Create agent
+mkdir -p agents
+cat > agents/greet.yaml << EOF
+operation: think
+config:
+  provider: cloudflare
+  model: '@cf/meta/llama-3.1-8b-instruct'
+input:
+  prompt: Say hello to \${input.name}
+EOF
+
 # Create ensemble workflow
 mkdir -p ensembles
-cat > ensembles/hello-world.yml << EOF
+cat > ensembles/hello-world.yaml << EOF
 name: hello-world
+
+trigger:
+  - type: http
+    path: /api/hello
+    methods: [POST]
+    public: true
+
 flow:
-  - agent: greet
-    operation: think
-    config:
-      provider: cloudflare
-      model: '@cf/meta/llama-3.1-8b-instruct'
+  - name: greet
+    agent: greet
     input:
-      prompt: Say hello to \${input.name}
+      name: \${input.name}
+
+output:
+  greeting: \${greet.output}
 EOF
 
 # Deploy to Cloudflare Workers
-npx wrangler login
-npx wrangler deploy
+pnpm wrangler login
+pnpm wrangler deploy
 
 # Execute ensemble
-curl https://your-worker.workers.dev/api/v1/execute \
+curl https://your-worker.workers.dev/api/hello \
   -H "Content-Type: application/json" \
-  -d '{"ensemble": "hello-world", "input": {"name": "World"}}'
+  -d '{"name": "World"}'
 ```
 
 ---
