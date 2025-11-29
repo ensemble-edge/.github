@@ -165,7 +165,7 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 - ✅ Core runtime with graph executor
 - ✅ State management (immutable, access tracking)
 - ✅ Triggers: http, webhook, mcp, email, queue, cron, build, cli (8 types)
-- ✅ Operations: think, code, storage, data, http, tools, email, sms, html, pdf, page, form, queue, docs (14 types)
+- ✅ Operations: think, code, storage, data, http, tools, email, sms, html, pdf, form, queue, docs (13 types)
 - ✅ Structured outputs with JSON Schema components
 - ✅ Durable Objects (ExecutionState, HITL)
 - ✅ Webhooks (inbound/outbound with HMAC signatures)
@@ -274,10 +274,17 @@ Then orchestrates them at the edge where they execute fast and scale infinitely.
 
 📚 **[Complete Documentation](https://docs.ensemble.ai)** - Comprehensive guides and tutorials
 
+- **[Introduction](https://docs.ensemble.ai/)** - Core concepts and overview
 - **[Edgit](https://docs.ensemble.ai/edgit/overview)** - Component versioning system
+  - [Installation](https://docs.ensemble.ai/edgit/getting-started/installation)
+  - [Versioning Guide](https://docs.ensemble.ai/edgit/guides/versioning-components-agents)
+  - [CLI Reference](https://docs.ensemble.ai/edgit/reference/cli-commands)
 - **[Conductor](https://docs.ensemble.ai/conductor/overview)** - Edge orchestration framework
+  - [Your First Project](https://docs.ensemble.ai/conductor/getting-started/your-first-project)
+  - [Operations](https://docs.ensemble.ai/conductor/operations/overview)
+  - [Starter Kit](https://docs.ensemble.ai/conductor/starter-kit/overview)
+  - [Playbooks](https://docs.ensemble.ai/conductor/playbooks/rag-pipeline)
 - **[Cloud](https://docs.ensemble.ai/cloud/overview)** - Managed service (coming soon)
-- **[Getting Started](https://docs.ensemble.ai/getting-started)** - Quick start guides for all products
 - **[Examples](https://github.com/ensemble-edge/edgit/tree/main/examples)** - Real-world implementations
 
 ---
