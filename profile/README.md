@@ -1,8 +1,10 @@
 # Ensemble Edge
 
-**Version control meets edge orchestration for AI systems.**
+**AI orchestration, edge-native. Built exclusively for Cloudflare.**
 
-Build AI workflows that you actually control. No proprietary platforms, no vendor lock-in, no serverless sprawl, no duct tape and bailing wire "workflow automation." Just Git, YAML, and Cloudflare Workers. Fast, developer-first, infinite scale.
+Build AI workflows that you actually control. No proprietary platforms, no vendor lock-in, no serverless sprawl. Just Git, YAML, and Cloudflare Workers—with zero cold starts across 300+ global locations.
+
+Not cloud-agnostic. Purpose-built for Cloudflare's edge infrastructure: Workers, KV, D1, R2, Durable Objects, Queues, Vectorize, and Workers AI.
 
 ---
 
@@ -44,7 +46,7 @@ All version data lives in Git tags. Your CI/CD deploys to Cloudflare KV. Every v
 
 ## Conductor: YAML-Driven Edge Orchestration
 
-Compose AI workflows in YAML. Execute at 200+ global locations. Sub-50ms cold starts.
+Compose AI workflows in YAML. Execute on Cloudflare's global network—300+ locations, zero cold starts, V8 isolates not containers.
 
 ```yaml
 # ensembles/company-intelligence.yaml
@@ -183,54 +185,56 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 
 ## Quick Start
 
-### Install the Ensemble CLI
+### Create a Project
 
 ```bash
-# Install the unified CLI (recommended)
-pnpm add -g @ensemble-edge/ensemble
+# Launch the wizard (no installation needed)
+npx @ensemble-edge/ensemble
 
-# Verify installation
-ensemble --version
-```
-
-The Ensemble CLI provides access to all tools: **Conductor** (orchestration), **Edgit** (versioning), and **Cloud** (managed platform).
-
-### Create a Conductor Project
-
-```bash
-# Create project (includes auth check and AI provider setup)
-ensemble conductor init my-project
+# Or create a Conductor project directly
+npx @ensemble-edge/ensemble conductor init my-project
 cd my-project
 
 # Build and start dev server
 pnpm install
 pnpm run build
-ensemble wrangler dev --local-protocol http
+npx wrangler dev --local-protocol http
 ```
+
+The Ensemble CLI provides access to all tools: **Conductor** (orchestration), **Edgit** (versioning), and **Cloud** (managed platform).
 
 ### Version Components with Edgit
 
 ```bash
 # Initialize Edgit in your project
-ensemble edgit init
+npx @ensemble-edge/edgit init
 
 # Version a prompt
-ensemble edgit tag create my-prompt v1.0.0
+npx @ensemble-edge/edgit tag create my-prompt v1.0.0
 
 # Deploy to staging
-ensemble edgit deploy set my-prompt v1.0.0 --to staging
+npx @ensemble-edge/edgit deploy set my-prompt v1.0.0 --to staging
 ```
 
 ### Deploy to Production
 
 ```bash
 # Deploy to Cloudflare Workers
-ensemble wrangler deploy
+npx wrangler deploy
 
 # Execute ensemble
 curl https://your-worker.workers.dev/api/hello \
   -H "Content-Type: application/json" \
   -d '{"name": "World"}'
+```
+
+### CI/CD Pipelines
+
+For automated environments, use the `-y` flag to skip interactive prompts:
+
+```bash
+npx @ensemble-edge/conductor init my-project -y
+npx @ensemble-edge/edgit init -y
 ```
 
 ---
