@@ -38,7 +38,7 @@ edgit deploy set extraction-prompt v0.1.0 --to prod  # < 50ms globally
 
 All version data lives in Git tags. Your CI/CD deploys to Cloudflare KV. Every version ever created is instantly accessible at the edge.
 
-[→ Get Started with Edgit](https://docs.ensemble.ai/getting-started/edgit)
+[→ Get Started with Edgit](https://docs.ensemble.ai/edgit/getting-started/installation)
 
 ---
 
@@ -183,65 +183,49 @@ Core tooling (Edgit, Conductor) is open source. Cloud is proprietary—we charge
 
 ## Quick Start
 
-### Install Edgit
+### Install the Ensemble CLI
+
 ```bash
-npm install -g @ensemble-edge/edgit
-cd your-repo
-edgit init
+# Install the unified CLI (recommended)
+pnpm add -g @ensemble-edge/ensemble
+
+# Verify installation
+ensemble --version
 ```
 
-### Version Components
+The Ensemble CLI provides access to all tools: **Conductor** (orchestration), **Edgit** (versioning), and **Cloud** (managed platform).
+
+### Create a Conductor Project
+
 ```bash
-edgit tag create my-prompt v1.0.0
-edgit deploy set my-prompt v1.0.0 --to staging
+# Create project (includes auth check and AI provider setup)
+ensemble conductor init my-project
+cd my-project
+
+# Build and start dev server
+pnpm install
+pnpm run build
+ensemble wrangler dev --local-protocol http
 ```
 
-### Deploy to Edge
+### Version Components with Edgit
+
 ```bash
-edgit build --target cloudflare
-edgit deploy --to cloudflare
+# Initialize Edgit in your project
+ensemble edgit init
+
+# Version a prompt
+ensemble edgit tag create my-prompt v1.0.0
+
+# Deploy to staging
+ensemble edgit deploy set my-prompt v1.0.0 --to staging
 ```
 
-### Install Conductor
+### Deploy to Production
+
 ```bash
-# Install Conductor
-pnpm add -D @ensemble-edge/conductor
-
-# Create agent
-mkdir -p agents
-cat > agents/greet.yaml << EOF
-operation: think
-config:
-  provider: cloudflare
-  model: '@cf/meta/llama-3.1-8b-instruct'
-input:
-  prompt: Say hello to \${input.name}
-EOF
-
-# Create ensemble workflow
-mkdir -p ensembles
-cat > ensembles/hello-world.yaml << EOF
-name: hello-world
-
-trigger:
-  - type: http
-    path: /api/hello
-    methods: [POST]
-    public: true
-
-flow:
-  - name: greet
-    agent: greet
-    input:
-      name: \${input.name}
-
-output:
-  greeting: \${greet.output}
-EOF
-
 # Deploy to Cloudflare Workers
-pnpm wrangler login
-pnpm wrangler deploy
+ensemble wrangler deploy
 
 # Execute ensemble
 curl https://your-worker.workers.dev/api/hello \
