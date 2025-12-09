@@ -197,10 +197,9 @@ npx @ensemble-edge/ensemble
 npx @ensemble-edge/ensemble conductor init my-project
 cd my-project
 
-# Build and start dev server
+# Install and start dev server
 pnpm install
-pnpm run build
-npx wrangler dev --local-protocol http
+ensemble conductor start
 ```
 
 The Ensemble CLI provides access to all tools: **Conductor** (orchestration), **Edgit** (versioning), and **Cloud** (managed platform).
