@@ -28,17 +28,19 @@ edgit tag create validation-sql v0.5.0
 edgit tag create invoice-schema v1.0.0
 
 # Deploy optimal versions from different timelines
-edgit deploy set extraction-prompt v0.1.0 --to prod  # Ancient but perfect
-edgit deploy set company-agent v3.0.0 --to prod      # Latest stable
-edgit deploy set invoice-schema v1.0.0 --to prod     # Structured outputs
+edgit tag set extraction-prompt prod v0.1.0
+edgit tag set company-agent prod v3.0.0
+edgit tag set invoice-schema prod v1.0.0
+edgit push --tags --force
 
 # Instant rollback
-edgit deploy set extraction-prompt v0.1.0 --to prod  # < 50ms globally
+edgit tag set extraction-prompt prod v0.1.0
+edgit push --tags --force  # < 50ms globally
 ```
 
 **No merge conflicts. No monorepo versioning. No JSON state files.**
 
-All version data lives in Git tags. Your CI/CD deploys to Cloudflare KV. Every version ever created is instantly accessible at the edge.
+Edgit creates and manages git tags. That's it. GitHub Actions handles deployment. All version data lives in Git tags. Your CI/CD deploys to Cloudflare KV. Every version ever created is instantly accessible at the edge.
 
 [→ Get Started with Edgit](https://docs.ensemble.ai/edgit/getting-started/installation)
 
@@ -213,7 +215,8 @@ npx @ensemble-edge/edgit init
 npx @ensemble-edge/edgit tag create my-prompt v1.0.0
 
 # Deploy to staging
-npx @ensemble-edge/edgit deploy set my-prompt v1.0.0 --to staging
+npx @ensemble-edge/edgit tag set my-prompt staging v1.0.0
+npx @ensemble-edge/edgit push --tags --force
 ```
 
 ### Deploy to Production
